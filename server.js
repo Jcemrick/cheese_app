@@ -44,6 +44,15 @@ app.get('/', (req, res) => {
     res.send("Server working")
 });
 
+// Cheese
+app.get('/cheeses', async (req, res) => {
+    try {
+        res.json(await Cheese.find({}));
+    } catch (error) {
+        res.status(400).json(error);
+    }
+});
+
 // Create Cheese
 app.post('/cheeses', async (req, res) => {
     try {
@@ -71,14 +80,14 @@ app.delete('/cheeses/:id', async (req, res) => {
     }
 });
 
-// Cheese Index
-app.get('/cheeses', async (req, res) => {
+app.get('/cheeses/:id', async (req, res) => {
     try {
-        res.json(await Cheese.find({}));
+        res.json(await Cheese.findById(req.params.id));
     } catch (error) {
-        res.status(400).json(error);
+        res.status(400).json(error)
     }
-});
+})
+
 
 
 // Listener
